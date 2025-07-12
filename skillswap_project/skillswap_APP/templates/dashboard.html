@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}SkillSwap Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+  <h1 class="dashboard-heading">SkillSwap Dashboard</h1>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">🎓 Skills Offered</h5>
+          <p class="card-text">Graphic Design, Python, Public Speaking</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">🎯 Skills Needed</h5>
+          <p class="card-text">React.js, Video Editing</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">🔄 Ongoing Swaps</h5>
+          <p class="card-text">2 Active Exchanges</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">📝 Recent Activity</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item list-group-item-custom">✅ Swapped “Photoshop” with @arjun</li>
+            <li class="list-group-item list-group-item-custom">📩 New request from @priya for “React.js”</li>
+            <li class="list-group-item list-group-item-custom">⭐ Rated @maya for “Public Speaking”</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 mt-4 mt-lg-0">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">📅 Next Swap Session</h5>
+          <p class="card-text">With @shiv, Saturday at 6 PM</p>
+          <a href="#" class="btn btn-success">Join Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById("menu-toggle")?.addEventListener("click", function () {
+    document.getElementById("sidebar-wrapper")?.classList.toggle("d-none");
+  });
+</script>
+{% endblock %}

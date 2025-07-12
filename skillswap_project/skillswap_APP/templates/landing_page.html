@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwapIt – Skill Exchange Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.lordicon.com/lordicon.js"></script>
+</head>
+
+<body class="bg-white text-gray-900 font-sans" style="font-family: 'Poppins', sans-serif;">
+
+  <!-- Navbar -->
+  <nav class="flex flex-wrap items-center justify-between px-6 h-20 shadow-md sticky top-0 bg-white z-50">
+    <a href="/" class="flex items-center space-x-2">
+      <img src="{% static 'img/logo.png' %}" alt="SwapIt Logo" class="h-14 object-contain" style="height: 40px;">
+      <span class="text-xl font-bold text-blue-600 tracking-tight hidden sm:inline">SwapIt</span>
+    </a>
+    <div class="space-x-4 text-sm font-medium hidden md:flex">
+      <a href="#how-it-works" class="text-gray-700 hover:text-blue-600 transition mt-3 ">How It Works</a>
+      <a href="#skill" class="text-gray-700 hover:text-blue-600 transition mt-3">Browse Skills</a>
+      <a href="#faq" class="text-gray-700 hover:text-blue-600 transition mt-3">FAQ</a>
+      <a href="{% url 'login' %}"
+        class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Login</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="py-24 px-4 bg-gray-50 text-center">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight mb-4">Exchange Skills. Grow Together.</h1>
+      <p class="text-lg text-gray-600 mb-8">A free, flexible, and modern platform to learn from peers and share what you
+        know. Skill swap made simple.</p>
+      <a href="{% url 'register' %}"
+        class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-medium text-lg hover:bg-blue-700 transition shadow-md">
+        Get Started
+      </a>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-20 px-4 bg-white">
+    <h2 class="text-3xl font-semibold text-center mb-12 text-gray-800">How It Works</h2>
+    <div class="grid gap-10 md:grid-cols-3 max-w-6xl mx-auto">
+      <div class="bg-gray-50 border rounded-xl p-6 text-center hover:shadow-lg transition">
+        <lord-icon src="https://cdn.lordicon.com/kdduutaw.json" trigger="loop" delay="500" stroke="bold"
+          state="morph-group" style="width:150px;height:150px">
+        </lord-icon>
+        <h3 class="text-xl font-semibold mb-2 mt-4">Create Profile</h3>
+        <p class="text-gray-600">List your current skills and what you want to learn. Add availability and preferences.
+        </p>
+      </div>
+
+      <div class="bg-gray-50 border rounded-xl p-6 text-center hover:shadow-lg transition ">
+        <lord-icon src="https://cdn.lordicon.com/fqbvgezn.json" trigger="loop" delay="500" stroke="bold"
+          state="hover-roll" style="width:150px;height:150px">
+        </lord-icon>
+        <h3 class="text-xl font-semibold mb-2 mt-3">Request Swaps</h3>
+        <p class="text-gray-600">Browse others by skill. Send or receive swap requests and connect on your own terms.
+        </p>
+      </div>
+      <div class="bg-gray-50 border rounded-xl p-6 text-center hover:shadow-lg transition">
+        <lord-icon src="https://cdn.lordicon.com/cvwrvyjv.json" trigger="loop" delay="500" stroke="bold"
+          style="width:150px;height:150px">
+        </lord-icon>
+        <h3 class="text-xl font-semibold mb-2 mt-3">Rate & Learn</h3>
+        <p class="text-gray-600">After a session, leave helpful feedback and build your profile’s credibility.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skill Categories -->
+  <section id="skills" class="py-20 px-4 bg-gray-100">
+    <h2 class="text-3xl font-semibold text-center mb-14 text-gray-800">Popular Skills</h2>
+    <div class="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
+      <span class="bg-white px-5 py-2 rounded-full shadow text-sm hover:bg-blue-100 transition">Graphic Design</span>
+      <span class="bg-white px-5 py-2 rounded-full shadow text-sm hover:bg-blue-100 transition">Public Speaking</span>
+      <span class="bg-white px-5 py-2 rounded-full shadow text-sm hover:bg-blue-100 transition">Python</span>
+      <span class="bg-white px-5 py-2 rounded-full shadow text-sm hover:bg-blue-100 transition">Digital Marketing</span>
+      <span class="bg-white px-5 py-2 rounded-full shadow text-sm hover:bg-blue-100 transition">UI/UX Design</span>
+      <span class="bg-white px-5 py-2 rounded-full shadow text-sm hover:bg-blue-100 transition">Content Writing</span>
+    </div>
+    <div class="text-center mt-10">
+      <a href="{% url 'skill' %}" class="text-blue-600 hover:underline font-medium text-base">Explore All Skills →</a>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="bg-white py-20 px-4 text-center border-t border-gray-200">
+    <h2 class="text-3xl font-semibold mb-4 text-gray-800">Ready to Swap Skills?</h2>
+    <p class="text-lg mb-6 text-gray-600 max-w-xl mx-auto">Join our growing network and unlock peer-to-peer learning
+      that’s tailored to your goals.</p>
+    <a href="{% url 'register' %}"
+      class="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition shadow-sm">
+      Create My Free Profile
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-6 px-4 text-center text-sm">
+    <p>&copy; 2025 <strong>SwapIt</strong>. All rights reserved. Built for Odoo Hackathon.</p>
+  </footer>
+
+</body>
+
+</html>

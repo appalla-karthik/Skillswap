@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}SwapIt Profile{% endblock %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}"">
+
+{% block content %}
+<form method="POST" action="{% url 'save_profile' %}">
+  {% csrf_token %}
+
+
+
+<div class="container profile-card mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>User Profile</h2>
+    <div>
+      <button type="submit" class="btn btn-success me-2" onclick="saveProfile()">Save</button>
+      <button class="btn btn-outline-danger" onclick="discardChanges()">Discard</button>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-8">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="John Doe">
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" id="location" class="form-control" placeholder="City, Country">
+      </div>
+
+      <!-- Skills Offered -->
+      <div class="mb-3">
+        <label class="form-label">Skills Offered</label>
+        <input type="text" id="skillOfferedInput" class="form-control mb-2" placeholder="Type or select a skill">
+        <div id="skills-offered-tags"></div>
+        <div class="mt-2">
+          <small class="text-muted">Suggested based on your profile:</small><br>
+          <span class="suggested-skill" onclick="addSkill('offered', 'Graphic Design')">Graphic Design</span>
+          <span class="suggested-skill" onclick="addSkill('offered', 'React.js')">React.js</span>
+          <span class="suggested-skill" onclick="addSkill('offered', 'Java')">Java</span>
+        </div>
+      </div>
+
+      <!-- Skills Wanted -->
+      <div class="mb-3">
+        <label class="form-label">Skills Wanted</label>
+        <input type="text" id="skillWantedInput" class="form-control mb-2" placeholder="Type or select a skill">
+        <div id="skills-wanted-tags"></div>
+        <div class="mt-2">
+          <small class="text-muted">Suggested based on your profile:</small><br>
+          <span class="suggested-skill" onclick="addSkill('wanted', 'Python')">Python</span>
+          <span class="suggested-skill" onclick="addSkill('wanted', 'AngularJS')">AngularJS</span>
+          <span class="suggested-skill" onclick="addSkill('wanted', 'Algorithms')">Algorithms</span>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Availability</label>
+        <input type="text" class="form-control" placeholder="Weekends, Evenings...">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Profile Visibility</label>
+        <select class="form-select">
+          <option selected>Public</option>
+          <option>Private</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-4 text-center">
+      <img id="profileImage" src="https://i.pravatar.cc/150?img=5" alt="Profile" class="profile-photo mb-3">
+      <div>
+        <input type="file" id="profileInput" style="display: none;" onchange="previewImage(this)">
+        <button class="btn btn-sm btn-outline-primary" type="button" onclick="document.getElementById('profileInput').click();">Edit</button>
+        <button class="btn btn-sm btn-outline-danger" type="button" onclick="removePhoto()">Remove</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+<script>
+  const offeredSkills = new Set();
+  const wantedSkills = new Set();
+
+  function addSkill(type, skill) {
+    const skillSet = type === 'offered' ? offeredSkills : wantedSkills;
+    const container = document.getElementById(`skills-${type}-tags`);
+    if (!skill || skillSet.has(skill)) return;
+    skillSet.add(skill);
+
+    const tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.innerHTML = `${skill} <span class="remove-tag" onclick="removeSkill('${type}', '${skill}')">&times;</span>`;
+    container.appendChild(tag);
+  }
+
+  function removeSkill(type, skill) {
+    const skillSet = type === 'offered' ? offeredSkills : wantedSkills;
+    skillSet.delete(skill);
+    const container = document.getElementById(`skills-${type}-tags`);
+    container.innerHTML = '';
+    skillSet.forEach(s => addSkill(type, s));
+  }
+
+  document.getElementById('skillOfferedInput').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addSkill('offered', this.value.trim());
+      this.value = '';
+    }
+  });
+
+  document.getElementById('skillWantedInput').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addSkill('wanted', this.value.trim());
+      this.value = '';
+    }
+  });
+
+  function previewImage(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById('profileImage').src = e.target.result;
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  function removePhoto() {
+    document.getElementById('profileImage').src = "{% static 'images/default_user.png' %}";
+  }
+
+  function saveProfile() {
+    alert("✅ Profile saved (demo only)");
+  }
+
+  function discardChanges() {
+    if (confirm("Are you sure you want to discard all changes?")) {
+      window.location.reload();
+    }
+  }
+</script>
+
+
+{% endblock content %}

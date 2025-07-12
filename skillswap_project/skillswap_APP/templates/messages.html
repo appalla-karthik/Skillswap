@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}SwapIt Messages{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Sidebar / Inbox -->
+    <div class="col-md-4 border-end">
+      <h4 class="mb-3 fw-semibold">Inbox</h4>
+      <ul class="list-group">
+        {% for message in messages %}
+          <li class="list-group-item list-group-item-action">
+            <a href="{% url 'message_detail' message.id %}" class="text-decoration-none text-dark d-block">
+              <div class="d-flex justify-content-between">
+                <strong>{{ message.sender }}</strong>
+                <small class="text-muted">{{ message.timestamp|date:"M d, H:i" }}</small>
+              </div>
+              <div class="text-muted small">{{ message.subject }}</div>
+            </a>
+          </li>
+        {% empty %}
+          <li class="list-group-item text-center text-muted">No messages yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Message Detail -->
+    <div class="col-md-8">
+      {% if selected_message %}
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ selected_message.subject }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">From {{ selected_message.sender }} on {{ selected_message.timestamp }}</h6>
+            <p class="card-text">{{ selected_message.body|linebreaks }}</p>
+          </div>
+        </div>
+      {% else %}
+        <div class="text-center text-muted mt-5">
+          <p>Select a message to view its details.</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

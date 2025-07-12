@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Send Skill Swap Request{% endblock title %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4 text-center">Send Skill Swap Request to <strong>{{ receiver.get_full_name|default:receiver.username }}</strong></h2>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+              <label for="offered_skill" class="form-label">Skill You’re Offering</label>
+              <input type="text" name="offered_skill" class="form-control" placeholder="e.g. Python, Video Editing" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="requested_skill" class="form-label">Skill You Want to Learn</label>
+              <input type="text" name="requested_skill" class="form-control" placeholder="e.g. UI/UX Design" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="message" class="form-label">Optional Message</label>
+              <textarea name="message" rows="4" class="form-control" placeholder="Why do you want to connect? (Optional)"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send Request</button>
+            <a href="{% url 'skill' %}" class="btn btn-outline-secondary ms-2">Cancel</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

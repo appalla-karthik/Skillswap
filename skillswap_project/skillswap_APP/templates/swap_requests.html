@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}SkillSwap Dashboard{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4 fw-bold">Swap Requests</h2>
+
+  <!-- Filter & Search -->
+  <div class="row g-3 mb-4 align-items-center" id="filter-section">
+    <div class="col-md-3">
+      <select class="form-select status-filter" id="statusFilter">
+        <option value="">Status: All</option>
+        <option value="Pending">Pending</option>
+        <option value="Accepted">Accepted</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <input type="text" class="form-control" id="searchInput" placeholder="Search by skill, name, etc." />
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-primary w-100" id="applyFilterBtn">Apply Filter</button>
+    </div>
+  </div>
+
+  <!-- Sent Requests -->
+  <h3 class="mb-3">Requests You've Sent</h3>
+  <div class="sent-requests">
+    {% for req in sent_requests %}
+      <div class="card mb-3 p-3">
+        <strong>To:</strong> {{ req.receiver.username }}<br>
+        <strong>Offered:</strong> {{ req.offered_skill }} |
+        <strong>Wanted:</strong> {{ req.requested_skill }}<br>
+        <strong>Status:</strong>
+        <span class="badge 
+          {% if req.status == 'Accepted' %}bg-success
+          {% elif req.status == 'Rejected' %}bg-danger
+          {% else %}bg-warning text-dark{% endif %}">
+          {{ req.status }}
+        </span><br>
+        <small><em>Sent on {{ req.timestamp|date:"M d, Y H:i" }}</em></small>
+      </div>
+    {% empty %}
+      <p>No sent requests.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Received Requests -->
+  <h3 class="mt-5 mb-3">Requests You’ve Received</h3>
+  <div class="received-requests">
+    {% for req in received_requests %}
+      <div class="card mb-3 p-3 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+        <div>
+          <strong>From:</strong> {{ req.sender.username }}<br>
+          <strong>Offered:</strong> {{ req.offered_skill }} |
+          <strong>Wanted:</strong> {{ req.requested_skill }}<br>
+          <strong>Status:</strong>
+          <span class="badge 
+            {% if req.status == 'Accepted' %}bg-success
+            {% elif req.status == 'Rejected' %}bg-danger
+            {% else %}bg-warning text-dark{% endif %}">
+            {{ req.status }}
+          </span><br>
+        <small><em>Received on {{ req.timestamp|date:"M d, Y H:i" }}</em></small>
+        </div>
+        {% if req.status == "Pending" %}
+        <div class="mt-3 mt-md-0 text-end">
+          <a href="{% url 'accept_swap_request' req.id %}" class="btn btn-outline-success btn-sm me-2">Accept</a>
+          <a href="{% url 'reject_swap_request' req.id %}" class="btn btn-outline-danger btn-sm">Reject</a>
+        </div>
+        {% endif %}
+      </div>
+    {% empty %}
+      <p>No incoming requests.</p>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .badge-tech {
+    background-color: #0dcaf0;
+    color: #000;
+  }
+
+  .badge-creative {
+    background-color: #ffc107;
+    color: #000;
+  }
+
+  .rounded-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: #6c757d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.75rem;
+  }
+
+  .dark-mode {
+    background-color: #0f0f0f;
+    color: #f8f9fa;
+  }
+
+  .dark-mode .card {
+    background-color: #1c1c1c;
+    border: 1px solid #343a40;
+  }
+
+  .dark-mode .form-control::placeholder {
+    color: #aaa;
+  }
+
+  .dark-mode .text-muted {
+    color: #cfcfcf !important;
+  }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    function filterRequests() {
+      const status = $('#statusFilter').val().toLowerCase();
+      const search = $('#searchInput').val().toLowerCase().trim();
+
+      // Function to check match
+      function matches(card, direction) {
+        const text = $(card).text().toLowerCase();
+
+        const statusText = $(card).find('.badge').text().toLowerCase();
+
+        // Match status
+        const statusMatch = !status || statusText.includes(status);
+
+        // Match search by any keyword (username, offered, wanted)
+        const searchMatch = !search || text.includes(search);
+
+        return statusMatch && searchMatch;
+      }
+
+      // Apply filter on sent requests
+      $('.sent-requests .card').each(function () {
+        $(this).toggle(matches(this, 'sent'));
+      });
+
+      // Apply filter on received requests
+      $('.received-requests .card').each(function () {
+        $(this).toggle(matches(this, 'received'));
+      });
+
+      // Show/hide empty messages
+      if ($('.sent-requests .card:visible').length === 0) {
+        $('.sent-requests').html('<p>No sent requests found.</p>');
+      }
+
+      if ($('.received-requests .card:visible').length === 0) {
+        $('.received-requests').html('<p>No incoming requests found.</p>');
+      }
+    }
+
+    // Event bindings
+    $('#applyFilterBtn').on('click', filterRequests);
+    $('#statusFilter').on('change', filterRequests);
+    $('#searchInput').on('keyup', function (event) {
+      if (event.key === 'Enter') {
+        filterRequests();
+      }
+    });
+
+    // Initial filter on page load
+    filterRequests();
+  });
+</script>
+
+{% endblock %}
