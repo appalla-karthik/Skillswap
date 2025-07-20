@@ -57,15 +57,11 @@ TEMPLATES = [
 # Database
 
     DATABASES = {
-       'default': {
-        'ENGINE': 'django.db.backends.mysql',  # ✅ KEEP THIS
-        'NAME': 'swapit',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-    }
+}
 
 
 # Password Validators
