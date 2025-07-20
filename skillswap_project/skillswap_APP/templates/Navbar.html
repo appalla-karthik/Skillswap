@@ -13,8 +13,8 @@
 
     <div class="collapse navbar-collapse" id="mainNavbar">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-2">
-        <li class="nav-item"><a class="nav-link {% if request.path == '/dashboard/' %}active{% endif %}" href="{% url 'dashboard' %}">Dashboard</a></li>
-        <li class="nav-item"><a class="nav-link {% if request.path == '/skill/' %}active{% endif %}" href="{% url 'skill' %}">Browse Skills</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'skill' %}">Browse Skills</a></li>
         <li class="nav-item"><a class="nav-link {% if request.path == '/swap_requests/' %}active{% endif %}" href="{% url 'swap_requests' %}">Swap Requests</a></li>
         <li class="nav-item"><a class="nav-link {% if request.path == '/messages/' %}active{% endif %}" href="{% url 'messages' %}">Messages</a></li>
         <li class="nav-item"><a class="nav-link {% if request.path == '/settings/' %}active{% endif %}" href="#">Settings</a></li>
