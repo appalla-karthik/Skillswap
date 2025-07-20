@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Security
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-+y$#b-3j&kf_yn5f+ys5@0o02j@-*hyzszut!p8%+^9w_=-=7q')
 DEBUG = os.environ.get('DEBUG', '') != 'False'
-ALLOWED_HOSTS = ['*']  # Replace with your domain on production (e.g. 'swapit.onrender.com')
+ALLOWED_HOSTS = ['skillswap-productionmodel.up.railway.app']  # Replace with your domain on production (e.g. 'swapit.onrender.com')
 
 # Installed Apps
 INSTALLED_APPS = [
