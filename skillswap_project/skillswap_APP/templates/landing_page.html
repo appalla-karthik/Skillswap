@@ -20,11 +20,15 @@
       <span class="text-xl font-bold text-blue-600 tracking-tight hidden sm:inline">SwapIt</span>
     </a>
     <div class="space-x-4 text-sm font-medium hidden md:flex">
-      <a href="#how-it-works" class="text-gray-700 hover:text-blue-600 transition mt-3 ">How It Works</a>
-      <a href="#skill" class="text-gray-700 hover:text-blue-600 transition mt-3">Browse Skills</a>
+      <a href="#how-it-works" class="text-gray-700 hover:text-blue-600 transition mt-3">How It Works</a>
+      <a href="{% url 'dashboard' %}" class="text-gray-700 hover:text-blue-600 transition mt-3">Browse Skills</a>
       <a href="#faq" class="text-gray-700 hover:text-blue-600 transition mt-3">FAQ</a>
-      <a href="{% url 'login' %}"
-        class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Login</a>
+      
+<!--       {# Old Login Link Removed #} -->
+<!--       {# <a href="{% url 'login' %}" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Login</a> #} -->
+
+      <!-- New Dashboard Link -->
+      <a href="{% url 'dashboard' %}" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Dashboard</a>
     </div>
   </nav>
 
@@ -34,8 +38,12 @@
       <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight mb-4">Exchange Skills. Grow Together.</h1>
       <p class="text-lg text-gray-600 mb-8">A free, flexible, and modern platform to learn from peers and share what you
         know. Skill swap made simple.</p>
-      <a href="{% url 'register' %}"
-        class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-medium text-lg hover:bg-blue-700 transition shadow-md">
+
+<!--       {# Old Register Link Removed #} -->
+<!--       {# <a href="{% url 'register' %}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-medium text-lg hover:bg-blue-700 transition shadow-md">Get Started</a> #} -->
+
+      <!-- New Dashboard Button -->
+      <a href="{% url 'dashboard' %}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-medium text-lg hover:bg-blue-700 transition shadow-md">
         Get Started
       </a>
     </div>
@@ -93,9 +101,13 @@
     <h2 class="text-3xl font-semibold mb-4 text-gray-800">Ready to Swap Skills?</h2>
     <p class="text-lg mb-6 text-gray-600 max-w-xl mx-auto">Join our growing network and unlock peer-to-peer learning
       that’s tailored to your goals.</p>
-    <a href="{% url 'register' %}"
-      class="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition shadow-sm">
-      Create My Free Profile
+
+<!--     {# Old Register Link Removed #} -->
+<!--     {# <a href="{% url 'register' %}" class="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition shadow-sm">Create My Free Profile</a> #} -->
+
+    <!-- New Dashboard CTA -->
+    <a href="{% url 'dashboard' %}" class="bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition shadow-sm">
+      Go to Dashboard
     </a>
   </section>
 
