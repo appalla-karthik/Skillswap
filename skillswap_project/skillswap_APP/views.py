@@ -21,11 +21,11 @@ def notifications_view(request):
 # View swap requests (both sent and received)
 
 def swap_requests(request):
-    received = SkillSwapRequest.objects.filter(receiver=request.user)
-    sent = SkillSwapRequest.objects.filter(sender=request.user)
+    # received = SkillSwapRequest.objects.filter(receiver=request.user)
+    # sent = SkillSwapRequest.objects.filter(sender=request.user)
     return render(request, 'swap_requests.html', {
-        'received_requests': received,
-        'sent_requests': sent,
+        # 'received_requests': received,
+        # 'sent_requests': sent,
     })
 
 
@@ -37,51 +37,51 @@ def skill_search(request):
 
 # Handle skill swap request form
 def send_swap_request(request, receiver_id):
-    receiver = get_object_or_404(User, id=receiver_id)
+    # receiver = get_object_or_404(User, id=receiver_id)
 
-    if request.method == 'POST':
-        form = SkillSwapRequestForm(request.POST)
-        if form.is_valid():
-            swap_request = form.save(commit=False)
-            swap_request.sender = request.user
-            swap_request.receiver = receiver
-            swap_request.save()
-            return redirect('swap_requests')
-    else:
-        form = SkillSwapRequestForm()
+    # if request.method == 'POST':
+    #     form = SkillSwapRequestForm(request.POST)
+    #     if form.is_valid():
+    #         swap_request = form.save(commit=False)
+    #         swap_request.sender = request.user
+    #         swap_request.receiver = receiver
+    #         swap_request.save()
+    #         return redirect('swap_requests')
+    # else:
+    #     form = SkillSwapRequestForm()
 
     return render(request, 'swap_request_form.html', {
-        'form': form,
-        'receiver': receiver
+        # 'form': form,
+        # 'receiver': receiver
     })
 
 # Profile management (update/create)
 def profile_view(request):
-    profile, created = Profile.objects.get_or_create(user=request.user)
+    # profile, created = Profile.objects.get_or_create(user=request.user)
 
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            # Split skills into list if input is a comma-separated string
-            offered = form.cleaned_data['skills_offered']
-            wanted = form.cleaned_data['skills_wanted']
+    # if request.method == 'POST':
+    #     form = ProfileForm(request.POST, request.FILES, instance=profile)
+    #     if form.is_valid():
+    #         # Split skills into list if input is a comma-separated string
+    #         offered = form.cleaned_data['skills_offered']
+    #         wanted = form.cleaned_data['skills_wanted']
 
-            if isinstance(offered, str):
-                form.instance.skills_offered = [skill.strip() for skill in offered.split(',') if skill.strip()]
-            if isinstance(wanted, str):
-                form.instance.skills_wanted = [skill.strip() for skill in wanted.split(',') if skill.strip()]
+    #         if isinstance(offered, str):
+    #             form.instance.skills_offered = [skill.strip() for skill in offered.split(',') if skill.strip()]
+    #         if isinstance(wanted, str):
+    #             form.instance.skills_wanted = [skill.strip() for skill in wanted.split(',') if skill.strip()]
 
-            form.save()
-            return redirect('profile')  # ✅ Redirect after successful POST
+    #         form.save()
+    #         return redirect('profile')  # ✅ Redirect after successful POST
 
-    else:
-        form = ProfileForm(instance=profile, initial={
-            'skills_offered': ', '.join(profile.skills_offered) if isinstance(profile.skills_offered, list) else profile.skills_offered,
-            'skills_wanted': ', '.join(profile.skills_wanted) if isinstance(profile.skills_wanted, list) else profile.skills_wanted,
-        })
+    # else:
+    #     form = ProfileForm(instance=profile, initial={
+    #         'skills_offered': ', '.join(profile.skills_offered) if isinstance(profile.skills_offered, list) else profile.skills_offered,
+    #         'skills_wanted': ', '.join(profile.skills_wanted) if isinstance(profile.skills_wanted, list) else profile.skills_wanted,
+    #     })
 
-    return render(request, 'profile.html', {'form': form})  # ✅ This line is **essential**
-
+    # return render(request, 'profile.html', {'form': form})  # ✅ This line is **essential**
+     return render(request, 'profile.html')
 # Accept a swap request
 
 def accept_swap_request(request, request_id):
