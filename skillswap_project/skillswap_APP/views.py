@@ -32,7 +32,7 @@ def swap_requests(request):
 
 # View and browse other users' profiles
 def skill_search(request):
-    profiles = Profile.objects.exclude(user=request.user)
+   
     return render(request, 'skill.html', {'profiles': profiles})
 
 # Handle skill swap request form
