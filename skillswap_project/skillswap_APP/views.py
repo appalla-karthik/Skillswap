@@ -10,17 +10,16 @@ def landing_page(request):
     return render(request, 'landing_page.html')
 
 # Dashboard after login
-@login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
 
 # Notification/messages page (renamed to avoid conflict with django.contrib.messages)
-@login_required
+
 def notifications_view(request):
     return render(request, 'messages.html')
 
 # View swap requests (both sent and received)
-@login_required
+
 def swap_requests(request):
     received = SkillSwapRequest.objects.filter(receiver=request.user)
     sent = SkillSwapRequest.objects.filter(sender=request.user)
@@ -32,13 +31,11 @@ def swap_requests(request):
 
 
 # View and browse other users' profiles
-@login_required
 def skill_search(request):
     profiles = Profile.objects.exclude(user=request.user)
     return render(request, 'skill.html', {'profiles': profiles})
 
 # Handle skill swap request form
-@login_required
 def send_swap_request(request, receiver_id):
     receiver = get_object_or_404(User, id=receiver_id)
 
@@ -59,7 +56,6 @@ def send_swap_request(request, receiver_id):
     })
 
 # Profile management (update/create)
-@login_required
 def profile_view(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
 
@@ -87,7 +83,7 @@ def profile_view(request):
     return render(request, 'profile.html', {'form': form})  # ✅ This line is **essential**
 
 # Accept a swap request
-@login_required
+
 def accept_swap_request(request, request_id):
     swap_request = get_object_or_404(SkillSwapRequest, id=request_id, receiver=request.user)
     swap_request.status = 'Accepted'
@@ -96,7 +92,7 @@ def accept_swap_request(request, request_id):
     return redirect('swap_requests')
 
 # Reject a swap request
-@login_required
+
 def reject_swap_request(request, request_id):
     swap_request = get_object_or_404(SkillSwapRequest, id=request_id, receiver=request.user)
     swap_request.status = 'Rejected'
@@ -104,7 +100,7 @@ def reject_swap_request(request, request_id):
     messages.warning(request, 'You rejected the skill swap request.')
     return redirect('swap_requests')
 
-@login_required
+
 def save_profile(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
 
