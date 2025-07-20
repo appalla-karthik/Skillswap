@@ -1,8 +1,10 @@
-Django>=4.2,<5.0
-gunicorn
-whitenoise
 psycopg2-binary
 python-decouple
 django-heroku
 pillow
 django-crispy-forms
+Django>=5.2
+gunicorn
+whitenoise
+dj-database-url
+mysqlclient
