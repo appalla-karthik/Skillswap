@@ -33,7 +33,7 @@ def swap_requests(request):
 # View and browse other users' profiles
 def skill_search(request):
    
-    return render(request, 'skill.html', {'profiles': profiles})
+    return render(request, 'skill.html')
 
 # Handle skill swap request form
 def send_swap_request(request, receiver_id):
